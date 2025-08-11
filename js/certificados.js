@@ -81,7 +81,7 @@
                 const courseLoad = formInputs.courseLoad.value || 'XX';
                 const completionDate = formatDate(formInputs.completionDate.value);
 
-                const replaceTags = (text) => text.replace(/<NOME_INSTRUTOR>/g, instructorName).replace(/<CARGA_HORARIA>/g, courseLoad).replace(/<DATA_CONCLUSAO>/g, completionDate).replace(/<NOME_EMPRESA_CLIENTE>/g, 'ASSOCIAÇÃO RESIDENCIAL RIO TOCANTINS').replace(/<CNPJ_CLIENTE>/g, '46.032.882/0001-78').replace(/<NORMA_REGULAMENTADORA>/g, 'NR 18 - Condições e Meio Ambiente de Trabalho');
+                const replaceTags = (text) => text.replace(/<NOME_INSTRUTOR>/g, instructorName).replace(/<CARGA_HORARIA>/g, courseLoad).replace(/<DATA_CONCLUSAO>/g, completionDate).replace(/<NOME_EMPRESA_CLIENTE>/g, 'EMPRESA MODELO EXEMPLO').replace(/<CNPJ_CLIENTE>/g, '00.000.000/0001-00').replace(/<NORMA_REGULAMENTADORA>/g, 'NR 18 - Condições e Meio Ambiente de Trabalho');
 
                 previewElements.title.textContent = formInputs.certificateTitle.value;
                 previewElements.line1.textContent = formInputs.certificateLine1.value;

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Certificados</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jsPDF and html2canvas Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Cormorant+Garamond:wght@400;600;700&family=Tangerine:wght@700&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <!-- Feather Icons -->
+
+    <script src="https://unpkg.com/feather-icons"></script>
+  
+</head>
+<body class="text-slate-800">
+
+    <!-- =============================================== -->
+    <!-- ============== NOVO CABEÇALHO ================= -->
+    <!-- =============================================== -->
+    <header class="w-full py-4 px-8 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold text-indigo-600">
+                GlauberCertifica
+            </a>
+            <!-- Menu de Navegação -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
+                <a href="#" class="hover:text-indigo-600 transition-colors">Início</a>
+                <a href="#" class="hover:text-indigo-600 transition-colors">Sobre</a>
+                <a href="#" class="hover:text-indigo-600 transition-colors">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- =============================================== -->
+    <!-- ============ CONTEÚDO PRINCIPAL =============== -->
+    <!-- =============================================== -->
+    <main class="w-full flex items-center justify-center p-4 lg:p-8">
+        <!-- O SEU CÓDIGO ORIGINAL COMEÇA AQUI DENTRO -->
+        <div class="max-w-7xl w-full bg-white rounded-2xl shadow-2xl grid grid-cols-12 gap-0 overflow-hidden">
+            <!-- Form Section -->
+            <div class="col-span-12 lg:col-span-5 p-8">
+                 <h2 class="text-2xl font-bold text-slate-900 mb-6">Configurar Certificado</h2>
+                <!-- Tab Buttons -->
+                <div class="mb-6 border-b border-slate-200">
+                    <nav class="flex -mb-px" aria-label="Tabs">
+                        <button class="tab-button active flex-1 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm" data-tab="tab-certificate">
+                            Certificado
+                        </button>
+                        <button class="tab-button flex-1 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm" data-tab="tab-participants">
+                            Participantes
+                        </button>
+                        <button class="tab-button flex-1 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm" data-tab="tab-content">
+                            Conteúdo
+                        </button>
+                    </nav>
+                </div>
+                
+                <form id="certificate-form" class="space-y-6">
+                    <!-- Tab 1: Certificate Data -->
+                    <div id="tab-certificate" class="tab-content active space-y-4">
+                        <div>
+                            <label for="company-logo" class="block text-sm font-medium text-slate-700">Logo da Empresa</label>
+                            <input type="file" id="company-logo" accept="image/*" class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 cursor-pointer">
+                        </div>
+                        <div>
+                            <label for="certificate-title" class="block text-sm font-medium text-slate-700">Título</label>
+                            <input type="text" id="certificate-title" value="CERTIFICADO DE TREINAMENTO" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="certificate-line1" class="block text-sm font-medium text-slate-700">Linha de Abertura</p>
+                            <input type="text" id="certificate-line1" value="A <EMPRESA X> Certifica que o(a) colaborador(a):" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="certificate-line2" class="block text-sm font-medium text-slate-700">Descrição</p>
+                            <textarea id="certificate-line2" rows="3" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">O colaborador da empresa <NOME_EMPRESA_CLIENTE>, inscrita sob CNPJ <CNPJ_CLIENTE>, concluiu o treinamento conforme a <NORMA_REGULAMENTADORA>.</textarea>
+                        </div>
+                         <div>
+                            <label for="certificate-line3" class="block text-sm font-medium text-slate-700">Detalhes</p>
+                            <textarea id="certificate-line3" rows="3" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">O treinamento foi ministrado pelo engenheiro <NOME_INSTRUTOR>, com carga horária de <CARGA_HORARIA> horas, no dia <DATA_CONCLUSAO>.</textarea>
+                             <p class="text-xs text-slate-500 mt-1">Use as tags para substituição automática.</p>
+                        </div>
+                        <div>
+                            <label for="completion-date" class="block text-sm font-medium text-slate-700">Data de Conclusão</label>
+                            <input type="date" id="completion-date" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="course-load" class="block text-sm font-medium text-slate-700">Carga Horária (horas)</label>
+                            <input type="number" id="course-load" value="8" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 2: Participants -->
+                    <div id="tab-participants" class="tab-content space-y-4">
+                        <h3 class="text-lg font-semibold text-slate-800">Aluno</h3>
+                        <div>
+                            <label for="recipient-name" class="block text-sm font-medium text-slate-700">Nome Completo</label>
+                            <input type="text" id="recipient-name" value="Escreva aqui o nome" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="recipient-cpf" class="block text-sm font-medium text-slate-700">CPF</label>
+                            <input type="text" id="recipient-cpf" value="Escreva aqui o CPF" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800 pt-4">Instrutor</h3>
+                         <div>
+                            <label for="instructor-name" class="block text-sm font-medium text-slate-700">Nome Completo</label>
+                            <input type="text" id="instructor-name" value="Glauber Alcântara" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                         <div>
+                            <label for="instructor-credentials" class="block text-sm font-medium text-slate-700">Credenciais (uma por linha)</label>
+                            <textarea id="instructor-credentials" rows="5" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">engenheiro
+</textarea>
+                        </div>
+                        <div>
+                            <label for="instructor-signature" class="block text-sm font-medium text-slate-700">Assinatura (Imagem)</label>
+                            <input type="file" id="instructor-signature" accept="image/*" class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 cursor-pointer">
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 3: Content -->
+                    <div id="tab-content" class="tab-content space-y-4">
+                        <div>
+                            <label for="course-content" class="block text-sm font-medium text-slate-700">Conteúdo Programático (Página 2)</label>
+                            <textarea id="course-content" rows="12" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 focus:border-indigo-500 focus:ring-indigo-500">• NR 10 - Segurança em Instalações e Serviços com Eletricidade;
+• Introdução à Segurança com Eletricidade;
+• Normas e legislação aplicadas nos trabalhos elétricos;
+• Acidentes com origem elétrica;
+• Técnicas de Análise de Risco;
+• Equipamentos de proteção coletiva e Equipamentos de proteção individual- EPI;
+• Primeiros Socorros, Lesões, atendimento, massagem cardíaca.</textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="pt-6 mt-6 border-t border-slate-200">
+                     <button type="button" id="generate-pdf-btn" class="w-full flex items-center justify-center gap-x-3 py-3 px-4 border border-transparent rounded-md shadow-lg text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300">
+                        <i data-feather="download"></i>
+                        Gerar PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Certificate Preview Section -->
+            <div class="col-span-12 lg:col-span-7" id="preview-wrapper">
+                <div id="preview-container" class="w-full flex justify-center">
+                    <div id="preview-scaler">
+                        <!-- Page 1 -->
+                        <div id="page-1" class="certificate-page">
+                            <header class="h-24">
+                                <img id="preview-logo" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%2280%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22200%22%20height%3D%2280%22%20fill%3D%22%23ffffff%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%2245%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%2394a3b8%22%20text-anchor%3D%22middle%22%3ELogo%20da%20Empresa%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Logo da Empresa" class="h-20 object-contain">
+                            </header>
+                            
+                            <main class="flex-grow flex flex-col items-center justify-center text-center -mt-16">
+                                <h1 id="preview-title" class="text-4xl tracking-[0.2em] font-semibold text-slate-800"></h1>
+                                <p id="preview-line1" class="text-lg mt-4 text-slate-600"></p>
+                                <h2 id="preview-recipient-name" class="text-4xl font-bold my-8 text-slate-900"></h2>
+                                <div class="space-y-4 text-lg max-w-4xl text-slate-700">
+                                    <p id="preview-line2"></p>
+                                    <p id="preview-line3"></p>
+                                </div>
+                            </main>
+
+                            <footer class="w-full mt-auto pt-10">
+                                <div class="flex justify-between items-end">
+                                    <div class="text-center w-5/12">
+                                        <img id="preview-instructor-signature-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Assinatura do Instrutor" class="h-20 mx-auto object-contain mb-1 hidden">
+                                        <p id="preview-instructor-signature-text" class="text-4xl" style="font-family: 'Tangerine', cursive;"></p>
+                                    </div>
+                                    <div class="text-center w-5/12 h-20 mb-1">
+                                        <!-- Empty space to align with signature image -->
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-start">
+                                    <hr class="border-t border-slate-600 w-5/12">
+                                    <hr class="border-t border-slate-600 w-5/12">
+                                </div>
+                                <div class="flex justify-between items-start">
+                                    <div class="text-center w-5/12 pt-2">
+                                        <p id="preview-instructor-name" class="font-bold text-sm text-slate-800"></p>
+                                        <div id="preview-instructor-credentials" class="text-xs whitespace-pre-wrap text-slate-600 leading-tight"></div>
+                                    </div>
+                                    <div class="text-center w-5/12 pt-2">
+                                        <p id="preview-recipient-name-footer" class="font-bold text-sm text-slate-800"></p>
+                                        <p class="text-sm text-slate-600" id="preview-recipient-cpf"></p>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
+
+                        <!-- Page 2 -->
+                         <div id="page-2" class="certificate-page mt-5 hidden">
+                            <main class="flex flex-col items-center justify-start text-center w-full">
+                                <h2 class="text-3xl font-bold mb-10 text-slate-800">Conteúdo Programático</h2>
+                                <div id="preview-course-content" class="text-base whitespace-pre-wrap text-left w-full columns-2 gap-16 text-slate-700"></div>
+                            </main>
+                         </div>
+                    </div>
+                </div>
+                 <div class="w-full text-center mt-6">
+                    <button id="show-page-1-btn" class="page-toggle-btn active">Página 1</button>
+                    <button id="show-page-2-btn" class="page-toggle-btn">Página 2</button>
+                </div>
+            </div>
+        </div>
+        <!-- O SEU CÓDIGO ORIGINAL TERMINA AQUI -->
+    </main>
+
+    <!-- =============================================== -->
+    <!-- ================ NOVO RODAPÉ ================== -->
+    <!-- =============================================== -->
+    <footer class="w-full py-8 px-8 mt-auto bg-slate-800 text-slate-400">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <p class="text-sm mb-4 sm:mb-0">
+                Desenvolvido por GlauberAlc
+            </p>
+            <!-- Substitua '#' pelos links das suas redes sociais -->
+            <div class="flex space-x-5">
+                <a href="#" aria-label="LinkedIn" class="transition-colors hover:text-white">
+                    <i data-feather="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="#" aria-label="GitHub" class="transition-colors hover:text-white">
+                    <i data-feather="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#" aria-label="Instagram" class="transition-colors hover:text-white">
+                    <i data-feather="instagram" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Loading Modal (sem alterações) -->
+    <div id="loading-modal" class="fixed inset-0 bg-slate-900 bg-opacity-75 flex items-center justify-center hidden z-50">
+        <div class="text-white text-center">
+            <svg class="animate-spin h-10 w-10 text-white mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="text-xl">Gerando PDF, por favor aguarde...</p>
+        </div>
+    </div>
+
+    <script src="/js/certificados.js"></script>
+</body>
+</html>

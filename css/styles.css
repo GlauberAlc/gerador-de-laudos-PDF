@@ -1,0 +1,73 @@
+   /* --- Estilos da Aplicação Original --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex-grow: 1;
+        }
+        .certificate-page {
+            font-family: 'Cormorant Garamond', serif;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            width: 1123px; 
+            height: 794px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            padding: 56px;
+            position: relative;
+        }
+        #preview-scaler {
+            transform-origin: top center;
+            transition: transform 0.3s ease-in-out;
+        }
+        #preview-wrapper {
+            background-color: #f8fafc; /* Cor mais suave que o fundo */
+            padding: 2rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #preview-container {
+            overflow: hidden;
+        }
+        .page-toggle-btn.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+        }
+        .page-toggle-btn:not(.active) {
+            background-color: #e2e8f0; /* slate-200 */
+            color: #334155; /* slate-700 */
+        }
+        .certificate-page::before {
+            content: '';
+            position: absolute;
+            top: 38px;
+            left: 38px;
+            right: 38px;
+            bottom: 38px;
+            border: 1.5px solid #bda060;
+            pointer-events: none;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            border-color: transparent;
+        }
+        .tab-button.active {
+            border-color: #4f46e5;
+            color: #4f46e5;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* --- INÍCIO: Novos Estilos para Header e Footer --- */
+        header {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background-color: white;
+        }
